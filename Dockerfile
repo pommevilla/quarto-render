@@ -1,10 +1,18 @@
 # Base image
-FROM ubuntu
+FROM ubuntu:18.04
 
-RUN  apt-get update \
-  && apt-get install -y wget \
-  && apt-get install -y git-all \
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common gnupg && \
+    add-apt-repository ppa:git-core/ppa && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    git \
+    wget \
+    ssh && \
+    apt-get autoclean && \
+    apt-get clean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY quarto-install.sh /quarto-install.sh
 

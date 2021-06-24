@@ -22,7 +22,7 @@ jobs:
     - name: "Check directory"
       run: |
         ls
-        ls _site/*
+        ls _site/*/*
 
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
@@ -34,4 +34,4 @@ jobs:
     - name: "Check directory"
       run: |
         ls
-        ls _site/*
+        ls _site/*/*

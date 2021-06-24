@@ -16,14 +16,25 @@ jobs:
       run: |
         ls
 
+        echo "Listing site/*:"
+        ls _site/*
+
+        echo "Listing site/*/*:"
+        ls _site/*/*
+
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
 
     - name: "Check directory"
       run: |
         ls
-        ls _site/*/*
 
+        echo "Listing site/*:"
+        ls _site/*/
+
+        echo "Listing site/*:"
+        ls _site/*/*
+        
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
@@ -34,4 +45,9 @@ jobs:
     - name: "Check directory"
       run: |
         ls
+
+        echo "Listing site/*:"
+        ls _site/*
+
+        echo "Listing site/*/*:"
         ls _site/*/*

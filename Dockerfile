@@ -8,8 +8,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
     wget \
-    ssh \
-	r-base && \
+    ssh &&\
+	apt-get install -y r-base && \
     apt-get autoclean && \
     apt-get clean && \
     apt-get autoremove -y && \

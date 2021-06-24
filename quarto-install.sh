@@ -11,7 +11,7 @@ quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v0.1.292/
 
 wget "${quarto_url}"
 
-sudo dpkg -i "${quarto_file_name}"
+dpkg -i "${quarto_file_name}"
 
 echo "Successfully installed"
 

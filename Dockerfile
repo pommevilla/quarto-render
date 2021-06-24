@@ -2,7 +2,6 @@
 FROM ubuntu
 
 RUN apt-get \
-    bash \
     wget \
 	dpkg
 

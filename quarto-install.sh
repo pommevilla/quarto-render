@@ -16,11 +16,11 @@ dpkg -i "${quarto_file_name}"
 echo "Successfully installed"
 
 # Check install
-quarto check
-quarto env
-quarto capabilities
+#quarto check
+#quarto env
+#quarto capabilities
 
-echo "Successfully checked"
+#echo "Successfully checked"
 
 # Render directory
 quarto render --execute-debug

@@ -1,0 +1,27 @@
+project:
+  type: site
+  title: "friendly-dollop"
+  output-dir: _site
+  
+execute:
+  freeze: true
+
+site:
+  title: "Quarto testing doc"
+  
+  sidebar:
+    style: "docked"
+    background: light
+    search: true
+    collapse-level: 2
+    tools:
+      - icon: github
+        href: https://github.com/pommevilla/friendly-dollop
+    contents:
+      - index.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

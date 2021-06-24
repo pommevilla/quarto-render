@@ -7,7 +7,6 @@ format:
     code-fold: true
 ---
 
-
 ## R example
 
 Testing man

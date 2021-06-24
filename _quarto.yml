@@ -22,6 +22,6 @@ site:
 
 format:
   html:
-    #    theme: cosmo
+    theme: cosmo
     #    css: styles.css
     toc: true

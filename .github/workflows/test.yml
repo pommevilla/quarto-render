@@ -1,0 +1,24 @@
+name: Render and deploy Quarto files
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  quarto-render-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      RENV_PATHS_ROOT: ~/.local/share/renv
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: "Install Quarto and render"
+    - uses: ./
+
+    - name: "Deploy to gh-pages"
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/master'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site

@@ -6,9 +6,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
-#    git \
-    ssh &&\
     apt-get autoclean && \
     apt-get clean && \
     apt-get autoremove -y && \

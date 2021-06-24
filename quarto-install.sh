@@ -7,8 +7,6 @@ echo "Entered"
 quarto_file_name="quarto-0.1.292-amd64.deb"
 quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v0.1.292/${quarto_file_name}"
 
-
-
 wget "${quarto_url}"
 
 dpkg -i "${quarto_file_name}"

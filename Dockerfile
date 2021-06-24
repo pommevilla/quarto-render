@@ -7,7 +7,7 @@ RUN apt-get update && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-    git \
+#    git \
     ssh &&\
     apt-get autoclean && \
     apt-get clean && \

@@ -13,10 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: "Who knows"
-      run: |
-        echo "Here"
-
     - name: "Check directory"
       run: |
         ls

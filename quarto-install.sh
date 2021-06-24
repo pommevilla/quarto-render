@@ -2,7 +2,7 @@
 set -e
 
 # Pinning to latest release at time of writing
-quarto_version="0.1.295"
+quarto_version="0.1.292"
 quarto_file_name="quarto-${quarto_version}-amd64.deb"
 quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/${quarto_version}/${quarto_file_name}"
 

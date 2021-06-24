@@ -1,10 +1,10 @@
 # Base image
-FROM ubuntu:latest
+FROM ubuntu
 
-#RUN apk add --no-cache \
-#    bash \
-#    wget \
-#	dpkg
+RUN apt-get \
+    bash \
+    wget \
+	dpkg
 
 COPY quarto-install.sh /quarto-install.sh
 

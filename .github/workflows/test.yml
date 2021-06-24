@@ -17,8 +17,6 @@ jobs:
         echo "Listing root"
         ls
 
-        [ -d "./_site/" ] && echo "Listing site/*:"
-
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
 

@@ -22,6 +22,7 @@ jobs:
     - name: "Check directory"
       run: |
         ls
+        ls _site/*
 
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
@@ -29,8 +30,8 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
-        keep_files: true
 
     - name: "Check directory"
       run: |
         ls
+        ls _site/*

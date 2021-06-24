@@ -18,7 +18,7 @@ jobs:
         echo "Here"
 
     - name: "Install Quarto and render"
-      uses: ./
+      uses: pommevilla/quarto-render@main
 
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3

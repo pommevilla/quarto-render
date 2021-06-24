@@ -1,17 +1,14 @@
 # Base image
-FROM ubuntu:18.04
+FROM rocker/r-ubuntu:20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends software-properties-common gnupg && \
     add-apt-repository ppa:git-core/ppa && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
-    wget \
     ssh &&\
-	apt-get install -y r-base && \
     apt-get autoclean && \
     apt-get clean && \
     apt-get autoremove -y && \

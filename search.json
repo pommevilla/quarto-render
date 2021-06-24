@@ -3,6 +3,6 @@
     "href": "index.html#r-example",
     "title": "Matplotlib Demo",
     "section": "R example",
-    "text": "Testing man\n\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) +\n        geom_point() +\n        geom_smooth(method = \"loess\", se = FALSE)"
+    "text": "Testing man\n\n\nCode\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) +\n        geom_point() +\n        geom_smooth(method = \"loess\", se = FALSE)"
   }
 ]

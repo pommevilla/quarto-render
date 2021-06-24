@@ -1,12 +1,3 @@
----
-title: "Matplotlib Demo"
-author: "Norah Smith"
-date: "May 22nd, 2021"
-format: 
-  html:
-    code-fold: true
----
-
 ## R example
 
 Testing man

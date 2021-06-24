@@ -1,0 +1,5 @@
+name: "Quarto Render"
+description: "Renders a repo of documents with Quarto"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

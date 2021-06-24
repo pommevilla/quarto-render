@@ -8,16 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RENV_PATHS_ROOT: ~/.local/share/renv
+
     steps:
     - uses: actions/checkout@v2
 
-    - name: "Who knows"
+    - name: "Check directory"
       run: |
-        echo "Here"
+        ls
 
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
-
 
     - name: "Check directory"
       run: |
@@ -29,3 +29,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
+
+    - name: "Check directory"
+      run: |
+        ls

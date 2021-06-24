@@ -1,6 +1,6 @@
 project:
   type: site
-  title: "friendly-dollop"
+  title: "Quarto Render Test"
   output-dir: _site
   
 execute:
@@ -22,6 +22,6 @@ site:
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    #    theme: cosmo
+    #    css: styles.css
     toc: true

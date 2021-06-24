@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     ca-certificates \
     wget 
 
-COPY quarto-install.sh /quarto-isntall.sh
+COPY quarto-install.sh /quarto-install.sh
 
 RUN chmod +x /quarto-install.sh
 

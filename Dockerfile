@@ -3,8 +3,8 @@ FROM alpine:3.10
 
 RUN apk add --no-cache \
     bash \
-    ca-certificates \
-    wget 
+    wget \
+	dpkg
 
 COPY quarto-install.sh /quarto-install.sh
 

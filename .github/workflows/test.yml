@@ -20,6 +20,11 @@ jobs:
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
 
+
+    - name: "Check directory"
+      run: |
+        ls
+
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'

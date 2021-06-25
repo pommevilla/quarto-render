@@ -22,4 +22,4 @@ echo "Successfully installed"
 # Render directory
 quarto render --execute-debug
 
-sudo chown -R $(id -u): ./_site
+chown -R $(id -u): ./_site

@@ -9,7 +9,7 @@ This repository stores the `quarto-render` [GitHub Actions](https://github.com/f
 
 If your quarto project has `freeze: true`, you can use this Github action to render your documents and publish your workflow to Github pages by using something like the following workflow:
 
-```
+```yaml
 # .github/workflows/render-and-publish.yaml
 name: Render and deploy Quarto files
 on: 

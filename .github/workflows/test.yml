@@ -15,7 +15,7 @@ jobs:
     - name: "Check directory"
       run: |
         echo "Listing root"
-        ls
+        ls -l
 
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
@@ -23,13 +23,13 @@ jobs:
     - name: "Check directory"
       run: |
         echo "Listing root"
-        ls
+        ls -l
 
         echo "Listing site/*:"
-        ls _site/*/
+        ls -l _site/*/
 
         echo "Listing site/*:"
-        ls _site/*/*
+        ls -l _site/*/*
         
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
@@ -41,10 +41,10 @@ jobs:
     - name: "Check directory"
       run: |
         echo "Listing root"
-        ls
+        ls -l
 
         echo "Listing site/*:"
-        ls _site/*
+        ls -l _site/*
 
         echo "Listing site/*/*:"
-        ls _site/*/*
+        ls -l _site/*/*

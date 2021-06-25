@@ -17,10 +17,6 @@ jobs:
         echo "Listing root"
         ls -l
 
-    - name: "List users"
-      run: |
-        cat /etc/passwd
-
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
 
@@ -35,9 +31,13 @@ jobs:
         echo "Listing site/*:"
         ls -l _site/*/*
     
+    - name: "List users"
+      run: |
+        cat /etc/passwd
+
     - name: "Change owner"
       run: |
-        chown -Rf runner:docker ./_site
+       chown -R runner: ./_site
 
     - name: "Check directory"
       run: |
@@ -56,10 +56,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
-
-    - name: "List users"
-      run: |
-        cat /etc/passwd
 
     - name: "Check directory"
       run: |

@@ -21,4 +21,3 @@ runs:
       shell: bash
       run: |
         quarto render --execute-debug
-

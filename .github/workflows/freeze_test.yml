@@ -14,6 +14,7 @@ jobs:
 
     - name: "Check directory"
       run: |
+        pwd
         ls -l
 
     - name: "Install Quarto and render"
@@ -21,11 +22,6 @@ jobs:
 
     - name: "Check directory"
       run: |
-        echo "Listing root"
+        pwd
         ls -l
 
-        echo "Listing site/*:"
-        ls -l _site/*
-
-        echo "Listing site/*/*:"
-        ls -l _site/*/*

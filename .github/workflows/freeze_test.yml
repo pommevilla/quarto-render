@@ -1,0 +1,33 @@
+name: Render and deploy Quarto files
+on: 
+  push:
+  pull_request:
+
+jobs:
+  quarto-render-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: "CD to freeze test"
+      run: |
+        cd .github/workflows
+
+    - name: "Check directory"
+      run: |
+        echo "Listing root"
+        ls -l
+
+    - name: "Install Quarto and render"
+      uses: pommevilla/quarto-render@main
+
+    - name: "Check directory"
+      run: |
+        echo "Listing root"
+        ls -l
+
+        echo "Listing site/*:"
+        ls -l _site/*
+
+        echo "Listing site/*/*:"
+        ls -l _site/*/*

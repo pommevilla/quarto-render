@@ -37,7 +37,7 @@ jobs:
 
     - name: "Change owner"
       run: |
-       chown -R runner: ./_site
+       sudo chown -R runner: ./_site
 
     - name: "Check directory"
       run: |

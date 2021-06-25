@@ -22,4 +22,6 @@ echo "Successfully installed"
 # Render directory
 quarto render --execute-debug
 
+cut -d: -f1 /etc/passwd
+
 chown -R $USER:$USER ./_site

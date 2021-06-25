@@ -6,9 +6,6 @@ on:
 jobs:
   render-and-deploy-gh-page:
     runs-on: ubuntu-latest
-    env:
-      RENV_PATHS_ROOT: ~/.local/share/renv
-
     steps:
     - uses: actions/checkout@v2
 
@@ -38,10 +35,6 @@ jobs:
     - name: "List users"
       run: |
         cat /etc/passwd
-
-        #    - name: "Change owner"
-        #      run: |
-        #       sudo chown -R runner: ./_site
 
     - name: "Check directory"
       run: |

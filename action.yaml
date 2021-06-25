@@ -4,6 +4,7 @@ runs:
   using: "composite"
   steps: 
     - name: "Download Quarto"
+      shell: bash
       run: |
         quarto_version="0.1.292"
         quarto_file_name="quarto-${quarto_version}-amd64.deb"
@@ -12,10 +13,12 @@ runs:
         wget -q "${quarto_url}"
 
     - name: "Install Quarto"
+      shell: bash
       run: |
         dpkg -i "${quarto_file_name}"
 
     - name: "Quarto render"
+      shell: bash
       run: |
         quarto render --execute-debug
 

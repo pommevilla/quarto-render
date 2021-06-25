@@ -39,9 +39,9 @@ jobs:
       run: |
         cat /etc/passwd
 
-    - name: "Change owner"
-      run: |
-       sudo chown -R runner: ./_site
+        #    - name: "Change owner"
+        #      run: |
+        #       sudo chown -R runner: ./_site
 
     - name: "Check directory"
       run: |

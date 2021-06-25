@@ -1,5 +1,11 @@
 [
   {
+    "href": "tests/freeze_test/index.html#r-example",
+    "title": "Matplotlib Demo",
+    "section": "R example",
+    "text": "Testing man\n\n\nCode\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) +\n        geom_point() +\n        geom_smooth(method = \"loess\", se = FALSE)"
+  },
+  {
     "href": "index.html#r-example",
     "title": "Matplotlib Demo",
     "section": "R example",

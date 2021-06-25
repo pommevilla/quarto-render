@@ -1,10 +1,10 @@
-name: Render and deploy Quarto files
+name: Simple freeze test
 on: 
   push:
   pull_request:
 
 jobs:
-  quarto-render-and-deploy:
+  simple-freeze-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

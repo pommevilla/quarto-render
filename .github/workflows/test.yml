@@ -31,6 +31,10 @@ jobs:
         echo "Listing site/*:"
         ls -l _site/*/*
         
+    - name: "List users"
+      run: |
+        cat /etc/passwd
+
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'

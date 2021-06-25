@@ -7,9 +7,10 @@ format:
     code-fold: true
 ---
 
-## R example
+## Freeze test
 
-Testing man
+This document was run from `./tests/freeze_tests.'
+
 
 ```{r}
 #| warning: false

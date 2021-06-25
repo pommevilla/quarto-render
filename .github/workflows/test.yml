@@ -42,7 +42,6 @@ jobs:
       run: |
         cat /etc/passwd
 
-chown -Rf runner:docker ./_site
     - name: "Check directory"
       run: |
         echo "Listing root"

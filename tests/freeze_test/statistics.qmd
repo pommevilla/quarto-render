@@ -1,0 +1,153 @@
+---
+title: "Impact of treatment on abundance of corn and *Miscanthus Gigantus*"
+---
+
+```{r setup, include=FALSE}
+source("setup.R")
+```
+
+
+## Which genes should we remove?
+
+Since we're interested in what makes the samples different, we'll start by removing non-informative genes from our samples. For this first pass, we'll say that a gene is non-informative if it isn't present in the majority of samples across both treatments. We'll start by getting the number of non-detects for each gene in each sample group:
+
+```{r}
+non_detect_counts <- data.raw.long %>%
+  group_by(fert_level, amoA) %>% 
+  count(CT == 40) %>% 
+  rename(non_detect = `CT == 40`) %>%
+  filter(non_detect == TRUE)
+
+head(non_detect_counts)
+```
+
+We can use `non_detect_counts` to get the number of non-detects from each gene. For example:
+
+```{r}
+non_detect_counts %>% 
+  filter(amoA == "amoA.001")
+```
+
+This tells us that *amoA.001* was not detected in 38 of the non-fertilized samples and in 9 of the fertilized samples.
+
+From here, we'll remove genes that were not detected in at least 30 samples in both the fertilized and non-fertilized samples. This cutoff is chosen arbitrarily.
+
+
+```{r}
+removes <- non_detect_counts %>% 
+  pivot_wider(names_from = fert_level, values_from = n, names_prefix = "fert.") %>%
+  filter(fert.0 > 30 & fert.336 > 30) %>%
+  pivot_longer(cols = fert.0:fert.336, names_to = "fert_level", values_to = "n")
+
+removes %>% 
+  distinct(amoA)
+```
+
+So we see that we're removing 17 genes. We'll keep it in a long format so we can visualize them with `ggplot`:
+
+```{r}
+removes %>% 
+  mutate(amoA = str_sub(amoA, -3)) %>% 
+  mutate(favored = case_when(
+    amoA %in% c("006", "038", "064", "069", "071") ~ "Nothing",
+    amoA %in% c("021", "028", "030", "048", "073", "075", "076", "077", "078") ~ "Non-fertilized",
+    amoA %in% c("040", "050", "053") ~ "Fourth quadrant",
+    TRUE ~ "First quadrant"
+  )) %>% 
+  mutate(fert_level = str_sub(fert_level, start = 6)) %>% 
+  ggplot(aes(amoA, n, fill = favored )) +
+  geom_col() +
+  facet_wrap(~ fert_level) + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    legend.text = element_markdown(size = 12),
+    legend.title = element_markdown(size = 12, hjust = 0),
+    strip.background = element_rect(size = 1, color = "black", fill = "NA"),
+    panel.grid = element_line(color = "gray95"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.border = element_rect(color = "black", size = 1, fill = NA)
+  ) +
+  scale_fill_viridis_d(begin = 0, end = 0.5) +
+  scale_y_continuous(limits = c(0, 50), expand = expansion(add = c(0, 0))) +
+  scale_x_discrete(limits = rev) + 
+  coord_flip() + 
+  labs(
+    y = "Number of samples with > 30 non-detects",
+    title = "Fertilizer level",
+    fill = "Favored by..."
+  )
+```
+
+
+Finally, let's remove those non-informative genes from the dataset before doing our statistics.
+
+```{r}
+data.priming.reduced <- data.priming %>% 
+  select(-one_of(removes$amoA))
+```
+
+
+## Do treatments have a significant effect on community composition?
+
+```{r}
+X <- data.priming.reduced %>% 
+  select(-c(amoA.001:amoA.074))
+Y <- data.priming.reduced %>% 
+  select(amoA.001:amoA.074)
+
+adonis(Y ~ X$fert_level + X$addition + X$crop + X$timepoint) 
+```
+
+Looks like fertilization level (and to a lesser extent, crop) significantly impacts community composition.
+
+## Gene-wise anova
+
+First pivot dataset to long format:
+
+```{r}
+data.priming.reduced.long <- data.priming.reduced %>% 
+  select(-sample_id, field_rep) %>% 
+  pivot_longer(cols = amoA.001:amoA.074) 
+```
+
+Create an ANOVA formula for each gene against all the factors. Borrowed heavily from [Kevin Blighe on this BioStars post](https://www.biostars.org/p/295214/#295266):
+
+```{r}
+formulae <- lapply(colnames(data.priming.reduced %>% select(amoA.001:amoA.074)), function(x) as.formula(paste0(x, " ~ fert_level * crop * timepoint * addition")))
+
+res <- lapply(formulae, function(x) broom::tidy(aov(x, data = data.priming.reduced)))
+names(res) <- format(formulae)
+names(res) <- str_sub(names(res), end = 8)
+
+anova_results <- lapply(seq_along(res), function(i) res[[i]] %>% mutate(gene = names(res)[[i]])) %>% 
+  bind_rows() %>% 
+  filter(term != "Residuals")
+```
+
+We can then visualize the anova results in a heatmap. Here, each column represents a gene, the rows represent the factors being tested by the ANOVA, and the colors indicate the significance of the ANOVA test. 
+
+```{r}
+anova_results %>% 
+  mutate(sig = case_when(
+    p.value < 0.05 & p.value > 0.01 ~ "*",
+    p.value < 0.01 & p.value > 0.001 ~ "**",
+    p.value < 0.001 ~ "***",
+    TRUE ~ "NS"
+  )) %>% 
+  mutate(gene = str_sub(gene, -3)) %>% 
+  ggplot(aes(gene, term, fill = sig)) + 
+  geom_tile(color = "black") + 
+  coord_equal() + 
+  labs(y = "",
+       x = "amoA",
+       title = "Summary of ANOVA results",
+       fill = "Significance ") + 
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0.5)
+  ) + 
+  scale_fill_viridis_d(option = "magma", direction = -1)
+```
+

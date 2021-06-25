@@ -1,0 +1,19 @@
+name: "Quarto Render"
+description: "Renders a repo of documents with Quarto"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  #inputs:
+  #  quarto_env:
+  #    description: "Run quarto env before rendering"
+  #    required: false
+  #    default: false
+  #  quarto_capabilities:
+  #    description: "Run quarto capabilities before rendering"
+  #    required: false
+  #    default: false
+  #  quarto_check:
+  #    description: "Run quarto check before rendering"
+  #    required: false
+  #    default: false
+

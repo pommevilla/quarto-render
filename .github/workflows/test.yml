@@ -31,6 +31,10 @@ jobs:
         echo "Listing site/*:"
         ls -l _site/*/*
     
+    - name: "Quarto check"
+      run: |
+        quarto check
+
     - name: "List users"
       run: |
         cat /etc/passwd

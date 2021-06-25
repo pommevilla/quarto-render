@@ -1,19 +1,21 @@
 name: "Quarto Render"
 description: "Renders a repo of documents with Quarto"
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  #inputs:
-  #  quarto_env:
-  #    description: "Run quarto env before rendering"
-  #    required: false
-  #    default: false
-  #  quarto_capabilities:
-  #    description: "Run quarto capabilities before rendering"
-  #    required: false
-  #    default: false
-  #  quarto_check:
-  #    description: "Run quarto check before rendering"
-  #    required: false
-  #    default: false
+  using: "composite"
+  steps: 
+    - name: "Download Quarto"
+      run: |
+        quarto_version="0.1.292"
+        quarto_file_name="quarto-${quarto_version}-amd64.deb"
+        quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v${quarto_version}/${quarto_file_name}"
+
+        wget -q "${quarto_url}"
+
+    - name: "Install Quarto"
+      run: |
+        dpkg -i "${quarto_file_name}"
+
+    - name: "Quarto render"
+      run: |
+        quarto render --execute-debug
 

@@ -38,6 +38,11 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
 
+    - name: "List users"
+      run: |
+        cat /etc/passwd
+
+chown -Rf runner:docker ./_site
     - name: "Check directory"
       run: |
         echo "Listing root"

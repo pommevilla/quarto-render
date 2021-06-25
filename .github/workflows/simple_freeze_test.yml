@@ -4,11 +4,11 @@ on:
   pull_request:
 
 jobs:
-  freeze-test:
+  simple-freeze-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./tests/freeze_test
+        working-directory: ./tests/simple_freeze_test
     steps:
     - uses: actions/checkout@v2
 

@@ -12,9 +12,9 @@ runs:
 
         wget -q "${quarto_url}"
 
-    - name: "Install Quarto"
-      shell: bash
-      run: |
+        #    - name: "Install Quarto"
+        #      shell: bash
+        #      run: |
         sudo dpkg -i "${quarto_file_name}"
 
     - name: "Quarto render"

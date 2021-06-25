@@ -24,4 +24,4 @@ quarto render --execute-debug
 
 cut -d: -f1 /etc/passwd
 
-chown -Rf runner:docker ./_site
+#chown -Rf runner:docker ./_site

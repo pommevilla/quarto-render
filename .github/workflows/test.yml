@@ -17,6 +17,10 @@ jobs:
         echo "Listing root"
         ls -l
 
+    - name: "List users"
+      run: |
+        cat /etc/passwd
+
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
 
@@ -30,10 +34,21 @@ jobs:
 
         echo "Listing site/*:"
         ls -l _site/*/*
-        
-    - name: "List users"
+    
+    - name: "Change owner"
       run: |
-        cat /etc/passwd
+        chown -Rf runner:docker ./_site
+
+    - name: "Check directory"
+      run: |
+        echo "Listing root"
+        ls -l
+
+        echo "Listing site/*:"
+        ls -l _site/*/
+
+        echo "Listing site/*:"
+        ls -l _site/*/*
 
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3

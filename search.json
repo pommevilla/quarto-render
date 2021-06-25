@@ -6,6 +6,60 @@
     "text": "This document was run from `./tests/freeze_tests.’\n\n\nCode\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) +\n        geom_point() +\n        geom_smooth(method = \"loess\", se = FALSE)"
   },
   {
+    "href": "tests/freeze_test/statistics.html#which-genes-should-we-remove",
+    "title": "Impact of treatment on abundance of corn and Miscanthus Gigantus",
+    "section": "Which genes should we remove?",
+    "text": "Since we’re interested in what makes the samples different, we’ll start by removing non-informative genes from our samples. For this first pass, we’ll say that a gene is non-informative if it isn’t present in the majority of samples across both treatments. We’ll start by getting the number of non-detects for each gene in each sample group:\n\nnon_detect_counts <- data.raw.long %>%\n  group_by(fert_level, amoA) %>% \n  count(CT == 40) %>% \n  rename(non_detect = `CT == 40`) %>%\n  filter(non_detect == TRUE)\n\nhead(non_detect_counts)\n\n# A tibble: 6 x 4\n# Groups:   fert_level, amoA [6]\n  fert_level amoA     non_detect     n\n       <int> <chr>    <lgl>      <int>\n1          0 amoA.001 TRUE          38\n2          0 amoA.002 TRUE          39\n3          0 amoA.003 TRUE          26\n4          0 amoA.004 TRUE          45\n5          0 amoA.005 TRUE           8\n6          0 amoA.006 TRUE          36\n\n\nWe can use non_detect_counts to get the number of non-detects from each gene. For example:\n\nnon_detect_counts %>% \n  filter(amoA == \"amoA.001\")\n\n# A tibble: 2 x 4\n# Groups:   fert_level, amoA [2]\n  fert_level amoA     non_detect     n\n       <int> <chr>    <lgl>      <int>\n1          0 amoA.001 TRUE          38\n2        336 amoA.001 TRUE           9\n\n\nThis tells us that amoA.001 was not detected in 38 of the non-fertilized samples and in 9 of the fertilized samples.\nFrom here, we’ll remove genes that were not detected in at least 30 samples in both the fertilized and non-fertilized samples. This cutoff is chosen arbitrarily.\n\nremoves <- non_detect_counts %>% \n  pivot_wider(names_from = fert_level, values_from = n, names_prefix = \"fert.\") %>%\n  filter(fert.0 > 30 & fert.336 > 30) %>%\n  pivot_longer(cols = fert.0:fert.336, names_to = \"fert_level\", values_to = \"n\")\n\nremoves %>% \n  distinct(amoA)\n\n# A tibble: 17 x 1\n# Groups:   amoA [17]\n   amoA    \n   <chr>   \n 1 amoA.006\n 2 amoA.021\n 3 amoA.028\n 4 amoA.030\n 5 amoA.038\n 6 amoA.040\n 7 amoA.048\n 8 amoA.050\n 9 amoA.053\n10 amoA.064\n11 amoA.069\n12 amoA.071\n13 amoA.073\n14 amoA.075\n15 amoA.076\n16 amoA.077\n17 amoA.078\n\n\nSo we see that we’re removing 17 genes. We’ll keep it in a long format so we can visualize them with ggplot:\n\nremoves %>% \n  mutate(amoA = str_sub(amoA, -3)) %>% \n  mutate(favored = case_when(\n    amoA %in% c(\"006\", \"038\", \"064\", \"069\", \"071\") ~ \"Nothing\",\n    amoA %in% c(\"021\", \"028\", \"030\", \"048\", \"073\", \"075\", \"076\", \"077\", \"078\") ~ \"Non-fertilized\",\n    amoA %in% c(\"040\", \"050\", \"053\") ~ \"Fourth quadrant\",\n    TRUE ~ \"First quadrant\"\n  )) %>% \n  mutate(fert_level = str_sub(fert_level, start = 6)) %>% \n  ggplot(aes(amoA, n, fill = favored )) +\n  geom_col() +\n  facet_wrap(~ fert_level) + \n  theme(\n    plot.title = element_text(hjust = 0.5),\n    legend.text = element_markdown(size = 12),\n    legend.title = element_markdown(size = 12, hjust = 0),\n    strip.background = element_rect(size = 1, color = \"black\", fill = \"NA\"),\n    panel.grid = element_line(color = \"gray95\"),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor.y = element_blank(),\n    panel.grid.minor.x = element_blank(),\n    panel.border = element_rect(color = \"black\", size = 1, fill = NA)\n  ) +\n  scale_fill_viridis_d(begin = 0, end = 0.5) +\n  scale_y_continuous(limits = c(0, 50), expand = expansion(add = c(0, 0))) +\n  scale_x_discrete(limits = rev) + \n  coord_flip() + \n  labs(\n    y = \"Number of samples with > 30 non-detects\",\n    title = \"Fertilizer level\",\n    fill = \"Favored by...\"\n  )\n\n\n\n\nFinally, let’s remove those non-informative genes from the dataset before doing our statistics.\n\ndata.priming.reduced <- data.priming %>% \n  select(-one_of(removes$amoA))"
+  },
+  {
+    "href": "tests/freeze_test/statistics.html#do-treatments-have-a-significant-effect-on-community-composition",
+    "title": "Impact of treatment on abundance of corn and Miscanthus Gigantus",
+    "section": "Do treatments have a significant effect on community composition?",
+    "text": "X <- data.priming.reduced %>% \n  select(-c(amoA.001:amoA.074))\nY <- data.priming.reduced %>% \n  select(amoA.001:amoA.074)\n\nadonis(Y ~ X$fert_level + X$addition + X$crop + X$timepoint) \n\n\nCall:\nadonis(formula = Y ~ X$fert_level + X$addition + X$crop + X$timepoint) \n\nPermutation: free\nNumber of permutations: 999\n\nTerms added sequentially (first to last)\n\n             Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    \nX$fert_level  1    1.4426 1.44255  56.092 0.37093  0.001 ***\nX$addition    2    0.0327 0.01633   0.635 0.00840  0.679    \nX$crop        1    0.0882 0.08823   3.431 0.02269  0.036 *  \nX$timepoint   1    0.0367 0.03671   1.427 0.00944  0.212    \nResiduals    89    2.2889 0.02572         0.58855           \nTotal        94    3.8890                 1.00000           \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nLooks like fertilization level (and to a lesser extent, crop) significantly impacts community composition."
+  },
+  {
+    "href": "tests/freeze_test/statistics.html#gene-wise-anova",
+    "title": "Impact of treatment on abundance of corn and Miscanthus Gigantus",
+    "section": "Gene-wise anova",
+    "text": "First pivot dataset to long format:\n\ndata.priming.reduced.long <- data.priming.reduced %>% \n  select(-sample_id, field_rep) %>% \n  pivot_longer(cols = amoA.001:amoA.074) \n\nCreate an ANOVA formula for each gene against all the factors. Borrowed heavily from Kevin Blighe on this BioStars post:\n\nformulae <- lapply(colnames(data.priming.reduced %>% select(amoA.001:amoA.074)), function(x) as.formula(paste0(x, \" ~ fert_level * crop * timepoint * addition\")))\n\nres <- lapply(formulae, function(x) broom::tidy(aov(x, data = data.priming.reduced)))\nnames(res) <- format(formulae)\nnames(res) <- str_sub(names(res), end = 8)\n\nanova_results <- lapply(seq_along(res), function(i) res[[i]] %>% mutate(gene = names(res)[[i]])) %>% \n  bind_rows() %>% \n  filter(term != \"Residuals\")\n\nWe can then visualize the anova results in a heatmap. Here, each column represents a gene, the rows represent the factors being tested by the ANOVA, and the colors indicate the significance of the ANOVA test.\n\nanova_results %>% \n  mutate(sig = case_when(\n    p.value < 0.05 & p.value > 0.01 ~ \"*\",\n    p.value < 0.01 & p.value > 0.001 ~ \"**\",\n    p.value < 0.001 ~ \"***\",\n    TRUE ~ \"NS\"\n  )) %>% \n  mutate(gene = str_sub(gene, -3)) %>% \n  ggplot(aes(gene, term, fill = sig)) + \n  geom_tile(color = \"black\") + \n  coord_equal() + \n  labs(y = \"\",\n       x = \"amoA\",\n       title = \"Summary of ANOVA results\",\n       fill = \"Significance \") + \n  theme(\n    plot.title = element_text(hjust = 0.5),\n    axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0.5)\n  ) + \n  scale_fill_viridis_d(option = \"magma\", direction = -1)"
+  },
+  {
+    "href": "tests/freeze_test/sample_python.html#sample-code",
+    "title": "Quarto testing doc",
+    "section": "Sample code",
+    "text": "xs = [x for x in range(10)]\n\nprint(*(f'{x} squared is {x^2}.' for x in xs), sep='\\n')\n\n0 squared is 2.\n1 squared is 3.\n2 squared is 0.\n3 squared is 1.\n4 squared is 6.\n5 squared is 7.\n6 squared is 4.\n7 squared is 5.\n8 squared is 10.\n9 squared is 11."
+  },
+  {
+    "href": "tests/freeze_test/sample_python.html#sample-plot",
+    "title": "Quarto testing doc",
+    "section": "Sample plot",
+    "text": "import matplotlib.pyplot as plt\nfrom matplotlib.colors import BoundaryNorm\nfrom matplotlib.ticker import MaxNLocator\nimport numpy as np\n\nZ = np.random.rand(6, 10)\nx = np.arange(-0.5, 10, 1) \ny = np.arange(4.5, 11, 1)  \n\nfig, ax = plt.subplots();\nax.pcolormesh(x, y, Z);"
+  },
+  {
+    "href": "tests/freeze_test/sample_python.html#ipyleaflet-example",
+    "title": "Quarto testing doc",
+    "section": "IPyLeaflet Example",
+    "text": "from ipyleaflet import Map\n\nMap(center=[34.6252978589571, -77.34580993652344], zoom=10)\n\n\n{\"model_id\":\"df6c02e1ddd140ef87af1ba8e04d03ad\",\"version_major\":2,\"version_minor\":0}"
+  },
+  {
+    "href": "tests/freeze_test/biodiversity.html#converting-ct-values-to-presence-absence",
+    "title": "Biodiversity analysis",
+    "section": "Converting CT values to presence absence",
+    "text": "We’ll start off our biodiversity analysis by converting the CT values into presence/absence. A CT of 40 indicates that the gene was not detected in that sample. We’ve converted these values to 0 to show that they are absent in that sample and the remaining values to 1 to indicate presence. After doing the transformations (not shown), we’re left with data that looks like:\n\namoA_presence_absence[1:5, 1:5]\n\n    amoA.001 amoA.002 amoA.003 amoA.004 amoA.005\n2b         1        0        1        1        1\n35b        1        0        1        1        1\n52f        0        0        0        0        1\n34f        0        0        0        0        1\n16f        1        0        1        0        1"
+  },
+  {
+    "href": "tests/freeze_test/biodiversity.html#visualizing-presence-absence",
+    "title": "Biodiversity analysis",
+    "section": "Visualizing presence absence",
+    "text": "We can plot this data to get an idea of the richness in the samples. We’ll also separate the data by fertilization level to get an idea of the relationship between that treatment and presence/absence.\n\namoA_presence_absence %>% \n  rownames_to_column(var = \"sample_id\") %>% \n  pivot_longer(cols = amoA.001:amoA.074, names_to = \"amoA\", values_to = \"presence\") %>% \n  mutate(amoA = str_sub(amoA, -3),\n         presence = as.factor(presence)) %>% \n  left_join(metadata %>% rownames_to_column(var = \"sample_id\")) %>% \n  ggplot(aes(sample_id, amoA, fill = presence)) + \n  geom_tile(color = \"black\") +\n  labs(\n    x = \"\",\n    y = \"\",\n    fill = \"Species is...\",\n    title = \"Presence/absence of species in crop priming samples\",\n    subtitle = \"(separated by fertilization level)\"\n  ) + \n  # scale_fill_manual(values = pa_cols)\n  scale_fill_viridis_d(labels = c(\"Absent\", \"Present\"),\n                       begin = 0, end = 1,\n                       option = \"magma\") +\n  theme(\n    axis.text.x = element_blank(),\n    plot.title = element_text(hjust = 0.5),\n    plot.subtitle = element_text(hjust = 0.5),\n    # strip.background = element_rect(color = \"black\", fill = \"NA\", size = 1),\n    strip.text = element_text(size = 10, face = \"bold\")\n  ) + \n  scale_y_discrete(limits = rev) + \n  facet_wrap(~ fert_level, scales = \"free\")"
+  },
+  {
+    "href": "tests/freeze_test/index.html",
+    "title": "Quarto testing doc",
+    "section": "",
+    "text": "Quarto + RMD + Github Pages Test\nThis page was generated during freeze_test.\nThe following examples are from data generated by researched conducted by the GERMS lab in conjunction with the Iowa Department of Natural Resources.\n\nStatistical analysis of fertilizer and priming addition in corn and miscanthus gigantus.\nBiodiversity analysis\nExample Python Noteboook"
+  },
+  {
     "href": "index.html#r-example",
     "title": "Matplotlib Demo",
     "section": "R example",

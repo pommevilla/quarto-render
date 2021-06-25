@@ -6,16 +6,14 @@ on:
 jobs:
   simple-freeze-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tests/freeze_test
     steps:
     - uses: actions/checkout@v2
 
-    - name: "CD to freeze test"
-      run: |
-        cd .github/workflows
-
     - name: "Check directory"
       run: |
-        echo "Listing root"
         ls -l
 
     - name: "Install Quarto and render"

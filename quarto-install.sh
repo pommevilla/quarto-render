@@ -21,3 +21,5 @@ echo "Successfully installed"
 
 # Render directory
 quarto render --execute-debug
+
+chown -R runner: directory

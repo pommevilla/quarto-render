@@ -1,14 +1,35 @@
 project:
   type: site
-  title: "Quarto Render Test"
+  title: "actions/quarto-render: freeze test"
   output-dir: _site
   
 execute:
   freeze: true
 
 site:
-  title: "Quarto testing doc: Simple freeze test"
+  title: "actions/quarto-render: freeze test"
   
+  navbar:
+    background: "dark"
+    right:
+      - text: "Home"
+        file: index.qmd
+      - text: "Basic Stats"
+        file: statistics.qmd
+      - text: "Biodiversity"
+        file: biodiversity.qmd
+      - text: "Example iPyNb"
+        file: sample_python.ipynb
+      - text: "Other stuff"
+        menu:
+          - text: "My Github"
+            url: https://github.com/pommevilla/
+          - text: "TFT 3.5: 500 Challenger Matches"
+            url: https://www.kaggle.com/pvillanueva13/tft-35-500-gm-matches
+          - text: "GERMS Lab"
+            url: http://www.germslab.org/
+          
+        
   sidebar:
     style: "docked"
     background: light
@@ -16,6 +37,9 @@ site:
     collapse-level: 2
     contents:
       - index.qmd
+      - statistics.qmd
+      - biodiversity.qmd
+      - sample_python.ipynb
 
 format:
   html:

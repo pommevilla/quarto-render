@@ -1,0 +1,18 @@
+{
+  "hash": "151dd42d9624d889d6f4b4a288cf6d25",
+  "result": {
+    "markdown": "---\ntitle: \"Biodiversity analysis\"\nformat: \n  html:\n    code-background: true\nexecute:\n  warning: false\n---\n\n\n\n## Converting CT values to presence absence\n\nWe'll start off our biodiversity analysis by converting the CT values into presence/absence. A CT of 40 indicates that the gene was not detected in that sample. We've converted these values to `0` to show that they are absent in that sample and the remaining values to `1` to indicate presence. After doing the transformations (not shown), we're left with data that looks like:\n\n::: {.cell}\n\n```{.r .cell-code}\namoA_presence_absence[1:5, 1:5]\n```\n\n::: {.cell-output-stdout}\n```\n    amoA.001 amoA.002 amoA.003 amoA.004 amoA.005\n2b         1        0        1        1        1\n35b        1        0        1        1        1\n52f        0        0        0        0        1\n34f        0        0        0        0        1\n16f        1        0        1        0        1\n```\n:::\n:::\n\n## Visualizing presence absence\n\nWe can plot this data to get an idea of the richness in the samples. We'll also separate the data by fertilization level to get an idea of the relationship between that treatment and presence/absence.\n\n::: {.cell}\n\n```{.r .cell-code}\namoA_presence_absence %>% \n  rownames_to_column(var = \"sample_id\") %>% \n  pivot_longer(cols = amoA.001:amoA.074, names_to = \"amoA\", values_to = \"presence\") %>% \n  mutate(amoA = str_sub(amoA, -3),\n         presence = as.factor(presence)) %>% \n  left_join(metadata %>% rownames_to_column(var = \"sample_id\")) %>% \n  ggplot(aes(sample_id, amoA, fill = presence)) + \n  geom_tile(color = \"black\") +\n  labs(\n    x = \"\",\n    y = \"\",\n    fill = \"Species is...\",\n    title = \"Presence/absence of species in crop priming samples\",\n    subtitle = \"(separated by fertilization level)\"\n  ) + \n  # scale_fill_manual(values = pa_cols)\n  scale_fill_viridis_d(labels = c(\"Absent\", \"Present\"),\n                       begin = 0, end = 1,\n                       option = \"magma\") +\n  theme(\n    axis.text.x = element_blank(),\n    plot.title = element_text(hjust = 0.5),\n    plot.subtitle = element_text(hjust = 0.5),\n    # strip.background = element_rect(color = \"black\", fill = \"NA\", size = 1),\n    strip.text = element_text(size = 10, face = \"bold\")\n  ) + \n  scale_y_discrete(limits = rev) + \n  facet_wrap(~ fert_level, scales = \"free\")\n```\n\n::: {.cell-output-display}\n![](biodiversity_files/figure-html/unnamed-chunk-6-1.png){width=672}\n:::\n:::\n\n",
+    "supporting": [
+      "biodiversity_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "dependencies": {
+      "type": "includes",
+      "data": []
+    },
+    "preserve": {},
+    "postProcess": null
+  }
+}

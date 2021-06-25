@@ -15,7 +15,7 @@ runs:
     - name: "Install Quarto"
       shell: bash
       run: |
-        dpkg -i "${quarto_file_name}"
+        sudo dpkg -i "${quarto_file_name}"
 
     - name: "Quarto render"
       shell: bash

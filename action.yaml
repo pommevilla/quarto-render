@@ -6,15 +6,13 @@ runs:
     - name: "Download Quarto"
       shell: bash
       run: |
-        quarto_version="0.1.292"
+        # Hardcoding versions for now to make sure new versions don't break things
+        quarto_version="0.1.296"
         quarto_file_name="quarto-${quarto_version}-amd64.deb"
         quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v${quarto_version}/${quarto_file_name}"
 
         wget -q "${quarto_url}"
 
-        #    - name: "Install Quarto"
-        #      shell: bash
-        #      run: |
         sudo dpkg -i "${quarto_file_name}"
 
     - name: "Quarto render"

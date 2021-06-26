@@ -4,8 +4,7 @@ This repository stores the `quarto-render` [GitHub Actions](https://github.com/f
 
 ## Examples
 
-
-### Rendering a `quarto` project with `freeze: true` and publishing the results to the `gh-pages` branch:
+### Rendering a `quarto` project with `freeze: true` and pushing to `gh-pages` branch
 
 If your quarto project has `freeze: true`, you can use this Github action to render your documents and publish your workflow to Github pages by using something like the following workflow:
 
@@ -36,7 +35,7 @@ jobs:
 * See [here](https://github.com/pommevilla/friendly-dollop) for an example page that runs this workflow with `freeze: true` that has both Python and R code.
 * Read more about using freeze in your Quarto project [here](https://quarto.org/docs/books/book-authoring.html?q=freeze#freezing).
 
-### Installing Python or R dependencies 
+### Installing Python or R dependencies before using `quarto-render` and publishing results to the `gh-pages` branch.
 
 You can use `quarto-render` with Quarto projects that aren't frozen by first reinstalling the packages used by your documents before rendering.
 

@@ -48,7 +48,7 @@ You can use `quarto-render` with Quarto projects that aren't frozen by first rei
 Below is the workflow used [in an example repository](https://github.com/pommevilla/hinterland-harbor) to restore the Python and R dependencies required for its documents before rendering them with the `quarto-render` Github action and pushing them to the `gh-pages` branch with `action-gh-pages` ([link](https://github.com/peaceiris/actions-gh-pages)). 
 
 ```yaml
-.github/workflows/
+# .github/workflows/render-and-publish.yaml
 name: Render and deploy Quarto files
 on: 
   push:

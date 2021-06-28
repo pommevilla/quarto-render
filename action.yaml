@@ -1,4 +1,7 @@
 name: "Quarto Render"
+branding:
+  icon: 'award'  
+  color: 'blue'
 description: "Renders a repo of documents with Quarto"
 runs:
   using: "composite"

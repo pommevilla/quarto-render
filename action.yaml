@@ -28,14 +28,15 @@ runs:
       run: |
         if [ -z "${{ inputs.output_format }}" ]
         then
-          echo "Output format found."
-          quarto render --to "${{ inputs.output_format }}"
-        else
           echo "No output format found."
           quarto render 
+        else
+          echo "Output format found."
+          quarto render --to "${{ inputs.output_format }}"
         fi
 
 inputs:
   output_format:
     description: 'The format Quarto will render'
     required: false
+    default: ""

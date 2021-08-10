@@ -3,7 +3,7 @@
   "result": {
     "markdown": "---\ntitle: \"Matplotlib Demo\"\nauthor: \"Norah Smith\"\ndate: \"May 22nd, 2021\"\n---\n\n## Freeze test\n\nThis document was run from `./tests/output_format_tests'\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) +\n        geom_point() +\n        geom_smooth(method = \"loess\", se = FALSE)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-pdf/unnamed-chunk-2-1.pdf)\n:::\n:::",
     "supporting": [
-      "index_files\\figure-pdf"
+      "index_files"
     ],
     "filters": [
       "rmarkdown/pagebreak.lua"

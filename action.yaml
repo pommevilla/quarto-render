@@ -21,9 +21,7 @@ runs:
     - name: "Test input"
       shell: bash
       run: |
-        if [ -z "${{ inputs.output_format }}" ]; then
-          echo "WE FOUND ${{ inputs.output_format }}"
-        fi
+        echo "Output_format: ${{ inputs.output_format }}"
 
     - name: "Quarto render"
       shell: bash

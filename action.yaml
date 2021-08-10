@@ -18,6 +18,11 @@ runs:
 
         sudo dpkg -i "${quarto_file_name}"
 
+    - name: "Test input"
+      shell: bash
+      run: |
+        echo "${{ inputs.output_format}}"
+
     - name: "Quarto render"
       shell: bash
       run: |

@@ -21,7 +21,7 @@ runs:
     - name: "Test input"
       shell: bash
       run: |
-        if [-z "${{ inputs.output_format }}" ]; then
+        if [ -z "${{ inputs.output_format }}" ]; then
           echo "WE FOUND ${{ inputs.output_format }}"
         fi
 

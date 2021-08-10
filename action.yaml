@@ -22,3 +22,7 @@ runs:
       shell: bash
       run: |
         quarto render --execute-debug
+inputs:
+  output_format:
+    description: 'The format Quarto will render'
+    required: false

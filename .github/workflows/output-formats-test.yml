@@ -1,0 +1,29 @@
+name: Output format test
+on: 
+  push:
+  pull_request:
+
+jobs:
+  output-format-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tests/output_format_test
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: "Check directory"
+      run: |
+        pwd
+        ls -l
+
+    - name: "Install Quarto and render"
+      uses: pommevilla/quarto-render@main
+      with:
+        output_format: "all"
+
+    - name: "Check directory"
+      run: |
+        pwd
+        ls -l
+

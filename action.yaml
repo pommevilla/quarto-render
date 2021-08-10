@@ -28,7 +28,13 @@ runs:
     - name: "Quarto render"
       shell: bash
       run: |
-        quarto render 
+        if [ -z "${{ inputs.output_format }}" ]
+        then
+          quarto render --to "${{ inputs.output_format }}"
+        else
+          quarto render 
+        fi
+
 inputs:
   output_format:
     description: 'The format Quarto will render'

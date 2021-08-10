@@ -19,14 +19,15 @@ runs:
         sudo dpkg -i "${quarto_file_name}"
 
     - name: "Test input"
+      if: "${{ inputs.output_format }}"
       shell: bash
       run: |
-        echo "${{ inputs.output_format }}"
+        echo "WE FOUND ${{ inputs.output_format }}"
 
     - name: "Quarto render"
       shell: bash
       run: |
-        quarto render --execute-debug
+        quarto render 
 inputs:
   output_format:
     description: 'The format Quarto will render'

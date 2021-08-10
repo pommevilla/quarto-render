@@ -18,7 +18,7 @@ jobs:
         ls -l
 
     - name: "Install Quarto and render"
-      uses: pommevilla/quarto-render@main
+      uses: pommevilla/quarto-render@feature/render-to
       with:
         output_format: all
 

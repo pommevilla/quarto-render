@@ -21,7 +21,7 @@ runs:
     - name: "Test input"
       shell: bash
       run: |
-        echo "${{ inputs.output_format}}"
+        echo "${{ inputs.output_format }}"
 
     - name: "Quarto render"
       shell: bash

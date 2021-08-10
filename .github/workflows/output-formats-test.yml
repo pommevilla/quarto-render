@@ -20,7 +20,7 @@ jobs:
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
       with:
-        output_format: "all"
+        output_format: all
 
     - name: "Check directory"
       run: |

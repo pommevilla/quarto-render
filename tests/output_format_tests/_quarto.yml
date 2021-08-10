@@ -7,7 +7,7 @@ execute:
   freeze: true
 
 site:
-  title: "Quarto testing doc: Simple freeze test"
+  title: "Quarto testing doc: Output format tests"
   
   sidebar:
     style: "docked"

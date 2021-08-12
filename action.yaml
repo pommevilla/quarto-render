@@ -27,6 +27,11 @@ runs:
     - name: "Quarto render"
       shell: bash
       run: |
+        if [ -z "${{ inputs.target_directory }}"]
+        then
+          cd "${{ inputs.target_directory }}"
+        fi
+
         if [ -z "${{ inputs.output_format }}" ]
         then
           echo "No output format found."

@@ -25,6 +25,7 @@ jobs:
       uses: pommevilla/quarto-render@feature/render-to
       with:
         output_format: all
+        target_directory: tests/output_format_test
 
     - name: "Check directory"
       run: |

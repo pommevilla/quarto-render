@@ -24,6 +24,11 @@ runs:
         echo "Output_format: ${{ inputs.output_format }}"
         echo "Target directory: ${{ inputs.target_directory }}"
 
+    - name: Set Path
+      shell: bash
+      run: |
+        echo "$HOME/bin" >> $GITHUB_PATH
+  
     - name: "Quarto render"
       shell: bash
       run: |

@@ -22,6 +22,7 @@ runs:
       shell: bash
       run: |
         echo "Output_format: ${{ inputs.output_format }}"
+        echo "Target directory: ${{ inputs.target_directory }}"
 
     - name: "Quarto render"
       shell: bash
@@ -38,5 +39,9 @@ runs:
 inputs:
   output_format:
     description: 'The format Quarto will render'
+    required: false
+    default: ""
+  target_directory:
+    description: 'The directory to render from'
     required: false
     default: ""

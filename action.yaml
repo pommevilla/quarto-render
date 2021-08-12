@@ -42,6 +42,7 @@ runs:
           quarto render 
         else
           echo "Output format found."
+          quarto tools install tinytex
           quarto render --to "${{ inputs.output_format }}"
         fi
 

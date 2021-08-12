@@ -12,15 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: "Change to "
-      run: |
-        cd tests/output_format_test
-
-    - name: "Check directory"
-      run: |
-        pwd
-        ls -l
-
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@feature/render-to
       with:

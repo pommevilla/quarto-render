@@ -27,8 +27,12 @@ runs:
     - name: "Quarto render"
       shell: bash
       run: |
-        if [ -z "${{ inputs.target_directory }}"]
+        pwd
+        ls -lath
+
+        if [ ! -z "${{ inputs.target_directory }}" ]
         then
+          echo "Changing to directory ${{ inputs.target_directory }}"
           cd "${{ inputs.target_directory }}"
         fi
 

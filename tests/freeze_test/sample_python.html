@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.72">
+  <meta name="generator" content="quarto-0.2.94">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Quarto testing doc – sample_python</title>
   <style>
@@ -90,7 +90,6 @@
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
   <script src="../../site_libs/quarto-html/clipboard.min.js"></script>
   <script src="../../site_libs/quarto-html/anchor.min.js"></script>
-  <script src="../../site_libs/quarto-html/quarto-html.js"></script>
   <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
   <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
@@ -167,7 +166,7 @@
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="op">*</span>(<span class="ss">f'</span><span class="sc">{</span>x<span class="sc">}</span><span class="ss"> squared is </span><span class="sc">{</span>x<span class="op">^</span><span class="dv">2</span><span class="sc">}</span><span class="ss">.'</span> <span class="cf">for</span> x <span class="kw">in</span> xs), sep<span class="op">=</span><span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="op">*</span>(<span class="ss">f'</span><span class="sc">{x}</span><span class="ss"> squared is </span><span class="sc">{x</span><span class="op">^</span><span class="dv">2</span><span class="sc">}</span><span class="ss">.'</span> <span class="cf">for</span> x <span class="kw">in</span> xs), sep<span class="op">=</span><span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>0 squared is 2.
 1 squared is 3.
@@ -217,6 +216,75 @@
 <!-- -->
 </section>
 </section>
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    window.tippy(el, {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    }); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      const id = new URL(ref.getAttribute('href')).hash.replace(/^#/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
 </main>
 <div class="page-navigation page-navigation-docked">
   <div class="nav-page nav-page-previous">

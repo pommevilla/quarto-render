@@ -22,5 +22,5 @@ runs:
 
     - name: "Quarto render"
       uses: quarto-dev/quarto-actions/install-quarto@v1
-      run: |
-        quarto render --execute-debug
+      # run: |
+      # quarto render --execute-debug

@@ -12,7 +12,7 @@ runs:
       uses: actions/checkout@master
     - name: "install quarto"
       uses: quarto-dev/quarto-actions/install-quarto@v1
-      run: |
+    - run: |
         quarto render 
 
     - run: echo "The job was automatically trigged by a ${{ github.event_name }}"

@@ -20,9 +20,8 @@ runs:
         # sudo dpkg -i "${quarto_file_name}"
 
 
-    - name: "Quarto render"
-      uses: quarto-dev/quarto-actions/install-quarto@v1
-      run: |
+    - uses: quarto-dev/quarto-actions/install-quarto@v1
+    - run: |
         quarto render 
 
     - run: echo "The job was automatically trigged by a ${{ github.event_name }}"

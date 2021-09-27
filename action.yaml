@@ -8,6 +8,7 @@ runs:
   steps: 
     - name: "install quarto"
       uses: quarto-dev/quarto-actions/install-quarto@v1
+      if_false: ${{ ! command -v quarto &> /dev/null }}
     - run: |
         quarto render 
       shell: bash

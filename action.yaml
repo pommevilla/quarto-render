@@ -6,15 +6,8 @@ description: "Renders a repo of documents with Quarto"
 runs:
   using: "composite"
   steps: 
-    - run: echo "The job was automatically trigged by a ${{ github.event_name }}"
-      shell: bash
-    - name: Checkout
-      uses: actions/checkout@master
     - name: "install quarto"
       uses: quarto-dev/quarto-actions/install-quarto@v1
     - run: |
         quarto render 
-      shell: bash
-
-    - run: echo "The job was automatically trigged by a ${{ github.event_name }}"
       shell: bash

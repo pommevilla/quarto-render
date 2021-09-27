@@ -24,3 +24,4 @@ runs:
       uses: quarto-dev/quarto-actions/install-quarto@v1
       # run: |
       # quarto render --execute-debug
+    - run: echo "The job was automatically trigged by a ${{ github.event_name }}"

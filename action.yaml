@@ -10,7 +10,8 @@ runs:
       shell: bash
     - name: Checkout
       uses: actions/checkout@master
-    - uses: quarto-dev/quarto-actions/install-quarto@v1
+    - name: "install quarto"
+      uses: quarto-dev/quarto-actions/install-quarto@v1
       run: |
         quarto render 
 

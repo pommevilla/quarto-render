@@ -16,3 +16,4 @@ runs:
       #     quarto render 
 
     - run: echo "The job was automatically trigged by a ${{ github.event_name }}"
+      shell: bash

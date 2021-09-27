@@ -6,22 +6,10 @@ description: "Renders a repo of documents with Quarto"
 runs:
   using: "composite"
   steps: 
-  # - name: "Download Quarto"
-  #uses: 
-      # shell: bash
-      # run: |
-        # Hardcoding versions for now to make sure new versions don't break things
-        # quarto_version="0.2.153"
-        # quarto_file_name="quarto-${quarto_version}-amd64.deb"
-        # quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v${quarto_version}/${quarto_file_name}"
-
-        # wget -q "${quarto_url}"
-
-        # sudo dpkg -i "${quarto_file_name}"
-
-
-    - uses: quarto-dev/quarto-actions/install-quarto@v1
-    - run: |
+    - run: echo "The job was automatically trigged by a ${{ github.event_name }}"
+    - name: "AHHHH"
+      uses: quarto-dev/quarto-actions/install-quarto@v1
+      run: |
         quarto render 
 
     - run: echo "The job was automatically trigged by a ${{ github.event_name }}"

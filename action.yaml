@@ -8,8 +8,8 @@ runs:
   steps: 
     - run: echo "The job was automatically trigged by a ${{ github.event_name }}"
       shell: bash
-      #- name: Checkout
-      #t uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
       # - name: "install quarto"
       #   uses: quarto-dev/quarto-actions/install-quarto@v1
       #   run: |

@@ -2,6 +2,10 @@
 
 This repository stores the `quarto-render` [GitHub Action](https://github.com/features/actions) for use with [Quarto](https://quarto.org/) projects. This action will call `quarto render` on the root directory of the repo. It also has example workflows for some common uses centered around web publishing.
 
+## About updates and Quarto releases
+
+Since Quarto is still in rapid development, the version of Quarto used in this action won't be updated with every Quarto release. The latest release version of this Github action will be pinned to a last known stable version. That said, if you want to make sure that you're using a reasonably new version of Quarto when you use this action, it is recommended to use the `@main` tag when using this action as opposed to a specific release number.
+
 ## Examples
 
 ### Rendering a static `quarto` site and pushing to `gh-pages` branch

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>
   <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.2.214">
+  <meta name="generator" content="quarto-0.2.232">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Quarto testing doc – index</title>
   <style>
@@ -136,6 +136,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       content: contentFn,
       maxWidth: 500,
       delay: 100,
+      arrow: false,
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
@@ -148,7 +149,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     tippyHover(ref, function() {
       let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#/, "");
+      const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
